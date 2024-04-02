@@ -5,6 +5,7 @@ const textareaTo = document.querySelector("#textareaTo");
 const btnTranslate = document.querySelector("#btnTranslate");
 const selects = document.querySelectorAll("select");
 const icons = document.querySelectorAll(".row img")
+const voz = document.querySelector("#talk")
 
 const countries = {
     "en-GB": "Inglês",
@@ -15,6 +16,7 @@ const countries = {
 
 }
 
+// para traduzir
 selects.forEach((tag) => {
     for (let country in countries) {
       let selected;
@@ -48,6 +50,7 @@ selects.forEach((tag) => {
       });
   }
 
+  //função alice
   function alice() {
 
     if(textareaFrom == "Alice" && country == "pt-BR"){
@@ -59,6 +62,7 @@ selects.forEach((tag) => {
 
   }
 
+// ler o texto taduzido
  icons.forEach(Image => {
     Image.addEventListener("click", ({target}) =>{
       let fala;
@@ -68,15 +72,62 @@ selects.forEach((tag) => {
       }else{
         fala = new SpeechSynthesisUtterance(textareaTo.value)
         fala.lang = selects[1].value;
-      }if(target.id == "to"){
+      }
+
+      /*if(target.id == "to"){
         fala = new SpeechSynthesisUtterance(textareaTo.value)
         fala.lang = selects[0].value;
       }else{
         fala = new SpeechSynthesisUtterance(textareaTo.value)
         fala.lang = selects[1].value;
-      }
+      }*/
+
       speechSynthesis.speak(fala)
     });
   }); 
 
- 
+
+  // reconhecimneto de fala 
+
+  class speechapi {
+
+    constructor(){
+
+      const SpeechToText = window.SpeechRecognition || window.webkitSpeechRecognition
+
+      this.speechapi = new SpeechToText()
+      this.output = textareaFrom.output
+      this.speechapi.continuous = true
+      this.speechapi.lang = 'pt-BR'
+
+      this.speechapi.onresult = e =>{
+        let result = e.result
+        let transcript = e.results[result].transcript
+
+        textareaFrom.value += transcript
+      }
+    }
+
+    start() {
+      this.speechapi.start()
+    }
+
+    stop() {
+      this.speechapi.stop()
+    }
+  }
+
+
+  const speech = new speechapi()
+
+  voz.addEventListener('click', () =>{
+    voz.disabled = true
+    voz.disabled = false
+    speech.start()
+  })
+
+  voz.addEventListener('click', () =>{
+    voz.disabled = false
+    voz.disabled = true
+    speech.stop()
+  })
