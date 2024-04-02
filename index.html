@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="img/iconfav.svg" type="image/x-icon">
+    <script src="./main.js" defer></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+
+    <title>TopLingo</title>
+</head>
+
+<body>
+
+    <header>
+        <h1 class="title">TopLingo</h1>
+        <div class="faixa"></div>
+        <div class="button">
+            <div class="ball"></div>
+        </div>
+        <script>
+            document.querySelector('.ball').addEventListener('click', (e) => {
+                e.target.classList.toggle('ball-move');
+                document.body.classList.toggle('dark');
+            });
+        </script>
+
+    </header>
+
+    <main>
+        <div class="faixa"></div>
+        <div class="container">
+            <div class="content">
+                <select name="selectFrom"></select>
+                <select name="selectTo"></select>
+            </div>
+            <div class="textAreas">
+                <textarea id="textareaFrom" rows="8" placeholder="Digite o que deseja Traduzir"></textarea>
+                <textarea id="textareaTo" rows="8" placeholder=" Hello World !" disabled></textarea>
+            </div>
+
+            <div class="row from">
+                <div class="icons">
+                    <i id="from" class="fas fa-volume-up"><img src="./img/volume.png" alt=""></i>
+                </div>
+
+            </div>
+            
+        </div>
+    </main>
+    <footer>
+        <button id="btnTranslate" class="traduzir">
+            <H1>Traduzir</H1>
+        </button>
+    </footer>
+</body>
+
+</html>
